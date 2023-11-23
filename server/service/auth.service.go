@@ -11,13 +11,14 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/gookit/slog"
+	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
 type AuthService interface {
 	Login(data dto.Login, uniqueCode string, wg *sync.WaitGroup) (interface{}, error)
-	Register(data dto.Register, uniqueCode string) error
+	Register(ctx echo.Context) (interface{}, error)
 }
 
 type authService struct {
@@ -85,7 +86,11 @@ func (repository *authService) Login(authData dto.Login, uniqueCode string, wg *
 	return data, nil
 }
 
-func (repository *authService) Register(authData dto.Register, uniqueCode string) error {
+func (repository *authService) Register(ctx echo.Context) (interface{}, error) {
+	uniqueCode := helper.UniqueCode()
+	var authData dto.Register
+	ctx.Bind(&authData)
+
 	slog.Info(uniqueCode + " Register check user username... ")
 	_, errCheck := repository.connection.CheckUsername(authData.Username)
 	errors.Is(errCheck, gorm.ErrDuplicatedKey)
@@ -93,17 +98,7 @@ func (repository *authService) Register(authData dto.Register, uniqueCode string
 	if errCheck == nil {
 		res := helper.BuildResponse("401", "duplicate username", helper.EmptyObj{})
 		slog.Info(uniqueCode+" Register response ", res)
-		return errCheck
-	}
-
-	slog.Info(uniqueCode + " Register check user email... ")
-	_, errCheckEmail := repository.connection.CheckEmail(authData.Email)
-	errors.Is(errCheckEmail, gorm.ErrDuplicatedKey)
-
-	if errCheckEmail == nil {
-		res := helper.BuildResponse("401", "duplicate email", helper.EmptyObj{})
-		slog.Info(uniqueCode+" Register response ", res)
-		return errCheckEmail
+		return res, errCheck
 	}
 
 	slog.Info(uniqueCode + " Register hashing password... ")
@@ -111,15 +106,13 @@ func (repository *authService) Register(authData dto.Register, uniqueCode string
 	if errHash != nil {
 		res := helper.BuildResponse("400", errHash.Error(), helper.EmptyObj{})
 		slog.Info(uniqueCode+" Register response ", res)
-		return errHash
+		return res, errHash
 	}
 
 	dataInsert := dto.Auth{
 		Username:  authData.Username,
-		Email:     authData.Email,
 		Password:  hashedPassword,
 		Name:      authData.Name,
-		StatusID:  1,
 		CreatedAt: time.Now(),
 	}
 
@@ -128,10 +121,11 @@ func (repository *authService) Register(authData dto.Register, uniqueCode string
 	if insert != nil {
 		res := helper.BuildResponse("400", insert.Error(), helper.EmptyObj{})
 		slog.Info(uniqueCode+" Register response ", res)
-		return insert
+		return res, insert
 	}
 
-	return nil
+	res := helper.BuildResponse("00", "success", helper.EmptyObj{})
+	return res, nil
 }
 
 func HashPassword(password string) (string, error) {

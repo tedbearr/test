@@ -43,12 +43,12 @@ func (service *authController) Login(ctx echo.Context) error {
 
 	slog.Info(uniqueCode+" Login request ", User)
 
-	validate := helper.Validate(User)
-	if validate != nil {
-		res := helper.BuildResponse("500", validate.Error(), helper.EmptyObj{})
-		slog.Info(uniqueCode+" Login response ", res)
-		return ctx.JSON(http.StatusOK, res)
-	}
+	// validate := helper.Validate(User)
+	// if validate != nil {
+	// 	res := helper.BuildResponse("500", validate.Error(), helper.EmptyObj{})
+	// 	slog.Info(uniqueCode+" Login response ", res)
+	// 	return ctx.JSON(http.StatusOK, res)
+	// }
 	wg.Add(1)
 	result, err := service.authService.Login(User, uniqueCode, &wg)
 	wg.Wait()
@@ -64,5 +64,11 @@ func (service *authController) Login(ctx echo.Context) error {
 }
 
 func (service *authController) Register(ctx echo.Context) error {
-	return nil
+	result, err := service.authService.Register(ctx)
+	if err != nil {
+		return ctx.JSON(http.StatusOK, err.Error())
+	} else {
+		return ctx.JSON(http.StatusOK, result)
+	}
+
 }

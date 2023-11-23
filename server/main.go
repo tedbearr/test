@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"server/config"
+	"server/helper"
 	"server/route"
 
 	"github.com/labstack/echo/v4"
@@ -16,12 +17,18 @@ func main() {
 
 	config.Env()
 
+	helper.Log()
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
 	prefix := e.Group("/api/v1/")
 	route.AuthRoute(prefix)
+	route.UserRoute(prefix)
+
+	prefixAdmin := e.Group("/admin/api/v1/")
+	route.AdminRoute(prefixAdmin)
 
 	e.GET("*", func(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, "not found")

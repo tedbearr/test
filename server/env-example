@@ -1,0 +1,19 @@
+PORT=8080
+
+APP_PORT=8080
+APP_ENV=local
+
+DB_USER=postgres
+DB_PASSWORD=galau712
+DB_HOST=localhost
+DB_NAME=LEARN
+DB_PORT=5432
+
+DB_DSN="host=localhost user=postgres password=galau712 dbname=LEARN port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+
+REDIS_HOST=localhost:6379
+REDIS_PASSWORD=galau712
+
+JWT_SECRET=golearn
+JWT_ACCESS_TOKEN_SECRET = golearnaccess
+JWT_REFRESH_TOKEN_SECRET = golearnrefresh

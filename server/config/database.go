@@ -1,6 +1,8 @@
 package config
 
 import (
+	"server/entity"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -26,7 +28,7 @@ func DatabaseInit() *gorm.DB {
 		panic(e)
 	}
 
-	// database.AutoMigrate(&entity.User{}, &entity.Status{}, &entity.GlobalParameter{})
+	database.AutoMigrate(&entity.Admin{}, &entity.Experience{}, &entity.Project{}, &entity.Skill{}, &entity.User{})
 
 	return database
 }
