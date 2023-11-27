@@ -6,20 +6,31 @@ import NotFound from "./component/NotFound";
 import Project from "./page/Project";
 import Experience from "./page/Experience";
 import * as context from "./helper/Context";
+import Layout from "./component/Layout";
+import * as AdminLayout from "./component/admin/Layout";
+import AdminHome from "./page/admin/Home";
+import Login from "./page/admin/Login";
+import Skill from "./page/admin/Skill";
 
 function App() {
   return (
-    <div className="flex flex-wrap flex-col w-full h-full p-0 m-0 font-serif bg-pink-100">
-      <context.baseUrl.Provider>
+    <div className="flex flex-wrap flex-col w-full h-full p-0 m-0 font-serif box-border">
+      <context.baseUrl.Provider value={context.baseUrl}>
         <Router>
-          <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />\
-            <Route path="project" element={<Project />} />
-            <Route path="experience" element={<Experience />} />
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />\
+              <Route path="project" element={<Project />} />
+              <Route path="experience" element={<Experience />} />
+            </Route>
+            <Route path="/admin" element={<AdminLayout.Layout />}>
+              <Route path="/admin/" element={<AdminHome />} />
+              <Route path="/admin/project" element={<Project />} />
+              <Route path="/admin/skills" element={<Skill />} />
+            </Route>
+            <Route path="/admin/Login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
         </Router>
       </context.baseUrl.Provider>
     </div>

@@ -23,4 +23,8 @@ var (
 	adminRepository repository.AdminRepositoy  = repository.NewAdminRepository(db)
 	adminService    service.AdminService       = service.NewAdminService(adminRepository)
 	adminController controller.AdminController = controller.NewAdminController(adminService)
+
+	skillRepository repository.SkillRepository = repository.NewSkillRepository(db)
+	skillService    service.SkillService       = service.NewSkillService(skillRepository)
+	skillController controller.SkillController = controller.NewSkillController(skillService)
 )

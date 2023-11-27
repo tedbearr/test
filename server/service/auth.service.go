@@ -33,6 +33,7 @@ func NewAuthService(authRepository repository.AuthRepository) AuthService {
 
 func (repository *authService) Login(authData dto.Login, uniqueCode string, wg *sync.WaitGroup) (interface{}, error) {
 	defer wg.Done()
+	slog.Info(uniqueCode+" Login request ", authData)
 	var mtx sync.Mutex
 	slog.Info(uniqueCode + " Login check auth... ")
 	user, errCheck := repository.connection.CheckUsername(authData.Username)
@@ -82,6 +83,7 @@ func (repository *authService) Login(authData dto.Login, uniqueCode string, wg *
 	}
 
 	data := dto.ResponseToken{AccessToken: accessToken, RefreshToken: refreshToken}
+	slog.Info(uniqueCode+" Login response ", data)
 
 	return data, nil
 }

@@ -32,7 +32,7 @@ func (service *authController) Login(ctx echo.Context) error {
 	// a := context.Request()
 	// fmt.Println(a)
 	uniqueCode := helper.UniqueCode()
-
+	wg.Add(1)
 	ctx.Bind(&User)
 
 	// if err := context.BodyParser(&User); err != nil {
@@ -40,7 +40,7 @@ func (service *authController) Login(ctx echo.Context) error {
 	// 	slog.Info(uniqueCode+" Login response ", res)
 	// 	return ctx.JSON(http.StatusOK, res)
 	// }
-
+	slog.Info(uniqueCode + " Login check auth... ")
 	slog.Info(uniqueCode+" Login request ", User)
 
 	// validate := helper.Validate(User)
@@ -49,9 +49,9 @@ func (service *authController) Login(ctx echo.Context) error {
 	// 	slog.Info(uniqueCode+" Login response ", res)
 	// 	return ctx.JSON(http.StatusOK, res)
 	// }
-	wg.Add(1)
+
 	result, err := service.authService.Login(User, uniqueCode, &wg)
-	wg.Wait()
+
 	if err != nil {
 		res := helper.BuildResponse("400", err.Error(), helper.EmptyObj{})
 		slog.Info(uniqueCode+" Login response ", res)
@@ -60,6 +60,7 @@ func (service *authController) Login(ctx echo.Context) error {
 
 	res := helper.BuildResponse("00", "success", result)
 	slog.Info(uniqueCode+" Login response ", res)
+	wg.Wait()
 	return ctx.JSON(http.StatusOK, res)
 }
 
