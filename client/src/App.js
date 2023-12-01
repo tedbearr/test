@@ -11,11 +11,16 @@ import * as AdminLayout from "./component/admin/Layout";
 import AdminHome from "./page/admin/Home";
 import Login from "./page/admin/Login";
 import Skill from "./page/admin/Skill";
+import { useState } from "react";
 
 function App() {
+  const [expand, setExpand] = useState(true);
+  const [expandMobile, setExpandMobile] = useState(false);
   return (
     <div className="flex flex-wrap flex-col w-full h-full p-0 m-0 font-serif box-border">
-      <context.baseUrl.Provider value={context.baseUrl}>
+      <context.settingConfig.Provider
+        value={{ expand, setExpand, expandMobile, setExpandMobile }}
+      >
         <Router>
           <Routes>
             <Route element={<Layout />}>
@@ -32,7 +37,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
-      </context.baseUrl.Provider>
+      </context.settingConfig.Provider>
     </div>
   );
 }
