@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`h-10 items-center w-full flex justify-between p-2 border-b-2 border-pink-400`}
+        className={`h-10 bg-pink-400 text-white items-center w-full flex justify-between p-2 border-b-2 border-pink-400`}
       >
         <span className="max-sm:flex hidden">
           <button onClick={Expand2}>

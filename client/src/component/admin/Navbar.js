@@ -18,18 +18,18 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`hidden ${
+        className={`${
           expandMobile ? "block" : "hidden"
         } max-sm:absolute max-sm:inset-0 max-sm:bg-black/70 max-sm:backdrop-blur-sm max-sm:h-full max-sm:w-full max-sm:z-10`}
         onClick={() => setExpandMobile(false)}
       ></div>
 
       <aside
-        className={`${expand ? "flex" : "hidden"} ${
+        className={`${expand ? " translate-x-0 duration-1000 w-56" : "w-0 duration-1000 -translate-x-64"} ${
           expandMobile
             ? "max-sm:block max-sm:-mr-40 max-sm:z-10 max-sm:w-10"
             : "max-sm:hidden"
-        } space-y-10 flex-wrap text-white flex-col basis-60 bg-pink-300 h-screen max-sm:max-w-[10rem]`}
+        } relative z-50 space-y-10 flex-wrap text-white flex-col basis-56 max-w-[14rem] bg-pink-300 h-screen max-sm:max-w-[10rem]`}
       >
         <div className="flex w-full justify-between p-2 relative">
           <span>a</span>

@@ -8,5 +8,5 @@ func SkillRoute(echo *echo.Group) {
 	r.GET("/:id", skillController.Find)
 	r.POST("/insert", skillController.Insert)
 	r.POST("/update/:id", skillController.Update)
-	r.POST("delete", skillController.Delete)
+	r.POST("/delete/:id", skillController.Delete)
 }

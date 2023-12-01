@@ -27,13 +27,13 @@ func NewSkillRepository(db *gorm.DB) SkillRepository {
 
 func (db *skillRepository) All() []dto.Skill {
 	var skill []dto.Skill
-	db.connection.Table("skill").Find(&skill)
+	db.connection.Table("skill").Order("id DESC").Find(&skill)
 	return skill
 }
 
 func (db *skillRepository) Find(id int) (dto.Skill, error) {
 	var skill dto.Skill
-	res := db.connection.Table("skill").First(&skill).Error
+	res := db.connection.Table("skill").Where("id = ?", id).First(&skill).Error
 	return skill, res
 }
 

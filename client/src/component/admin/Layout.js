@@ -9,8 +9,12 @@ const Layout = () => {
   return (
     <>
       <NotifToast />
-      <div className="flex flex-row w-full">
-        <Navbar />
+      <div className="flex flex-row w-full h-full">
+        <div className="flex bg-pink-300 max-sm:bg-pink-300">
+          <Navbar />
+        </div>
+
+        {/* <div className="w-1/4"></div> */}
         <div className={`flex flex-col w-full`}>
           <Header />
           <div className="flex flex-col p-10 w-full h-full ">

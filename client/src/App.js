@@ -17,7 +17,7 @@ function App() {
   const [expand, setExpand] = useState(true);
   const [expandMobile, setExpandMobile] = useState(false);
   return (
-    <div className="flex flex-wrap flex-col w-full h-full p-0 m-0 font-serif box-border">
+    <div className="flex flex-col w-full h-full p-0 m-0 font-serif box-border">
       <context.settingConfig.Provider
         value={{ expand, setExpand, expandMobile, setExpandMobile }}
       >

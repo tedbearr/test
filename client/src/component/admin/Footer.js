@@ -9,7 +9,7 @@ const Footer = () => {
       <footer
         className={`${
           expand ? "" : "fixed"
-        }  max-sm:fixed bottom-0 flex h-10 border-t-2 p-2 w-full justify-between items-center border-pink-400`}
+        }  max-sm:fixed text-white bg-pink-400 mt-10 bottom-0 flex h-10 border-t-2 p-2 w-full justify-end items-center border-pink-400`}
       >
         <span>Footer</span>
       </footer>
