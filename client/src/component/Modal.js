@@ -23,7 +23,12 @@ const Modal = ({ status, title, children, saveFunction, closeFunction }) => {
             )}
           </div>
           <div className="flex flex-wrap space-x-1 justify-end items-center">
-            <Button name="Save" onclick={saveFunction} />
+            {saveFunction == "none" ? (
+              ""
+            ) : (
+              <Button name="Save" onclick={saveFunction} />
+            )}
+
             <ButtonClose name="Close" onclick={closeFunction} />
           </div>
         </div>

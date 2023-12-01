@@ -25,11 +25,11 @@ const Navbar = () => {
       ></div>
 
       <aside
-        className={`${expand ? " translate-x-0 duration-1000 w-56" : "w-0 duration-1000 -translate-x-64"} ${
+        className={`${expand ? " translate-x-0 duration-500 w-56" : "w-0 duration-500 -translate-x-56"} ${
           expandMobile
-            ? "max-sm:block max-sm:-mr-40 max-sm:z-10 max-sm:w-10"
-            : "max-sm:hidden"
-        } relative z-50 space-y-10 flex-wrap text-white flex-col basis-56 max-w-[14rem] bg-pink-300 h-screen max-sm:max-w-[10rem]`}
+            ? "max-sm:-mr-40 max-sm:z-10 max-sm:translate-x-0 max-sm:duration-500 max-sm:w-10"
+            : "max-sm:translate-x-10 max-sm:duration-500 max-sm:w-0"
+        } flex relative z-50 space-y-10 flex-wrap text-white flex-col basis-56 max-w-[14rem] bg-pink-300 h-screen max-sm:max-w-[10rem]`}
       >
         <div className="flex w-full justify-between p-2 relative">
           <span>a</span>

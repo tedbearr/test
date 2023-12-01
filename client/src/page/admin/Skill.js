@@ -46,7 +46,6 @@ const Skill = () => {
       setValue("type", res.data.data.type);
       setValue("skill", res.data.data.skill);
     });
-
     setModalStatus(!modalStatus);
     console.log("update");
   };
@@ -72,7 +71,7 @@ const Skill = () => {
   const closeModal = () => {
     setIsEdit(false);
     setIdEdit(0);
-    // reset();
+    reset();
     setModalStatus(!modalStatus);
   };
 
@@ -211,6 +210,7 @@ const Skill = () => {
         title={"View"}
         key={2}
         closeFunction={closeViewModal}
+        saveFunction={"none"}
       >
         <div className="flex flex-wrap w-full text-lg">
           <form className="flex w-full flex-col space-y-4 flex-wrap flex-grow ">
