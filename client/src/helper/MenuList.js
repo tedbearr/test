@@ -1,18 +1,18 @@
 const Menu = [
   {
-    link: "/admin/",
+    link: "/admin",
     name: "Home",
-    icon: "fa fa-envelope",
+    icon: "fa fa-home",
   },
   {
     link: "/admin/project",
     name: "Project",
-    icon: "fa fa-arrow-down",
+    icon: "fa fa-diagram-project",
   },
   {
     link: "/admin/skills",
     name: "Skills",
-    icon: "fa fa-arrow-up",
+    icon: "fa fa-cogs",
   },
 ];
 

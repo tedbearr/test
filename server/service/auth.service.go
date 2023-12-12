@@ -54,7 +54,7 @@ func (repository *authService) Login(authData dto.Login, uniqueCode string, wg *
 
 	slog.Info(uniqueCode + " Login generating access token... ")
 	mtx.Lock()
-	accessToken, errAccessToken := GenerateAccessToken()
+	accessToken, errAccessToken := GenerateAccessToken(user)
 	if errAccessToken != nil {
 		res := helper.BuildResponse("400", errAccessToken.Error(), helper.EmptyObj{})
 		slog.Info(uniqueCode+" Login response ", res)
@@ -135,9 +135,9 @@ func HashPassword(password string) (string, error) {
 	return string(hash), err
 }
 
-func GenerateAccessToken() (string, error) {
+func GenerateAccessToken(user dto.Auth) (string, error) {
 	tokenSecret := config.Env().JWTAccessToken
-	claims := jwt.StandardClaims{ExpiresAt: time.Now().Add(time.Hour * 24).Unix()}
+	claims := jwt.StandardClaims{ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), Subject: user.Username}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -161,4 +161,10 @@ func ComparePassword(hashedPassword string, plainPassword []byte) error {
 	byteHash := []byte(hashedPassword)
 	err := bcrypt.CompareHashAndPassword(byteHash, plainPassword)
 	return err
+}
+
+func VerifyAccessToken(ctx echo.Context) {
+	var auth *dto.VerifyAccessToken
+
+	ctx.Bind(&auth)
 }

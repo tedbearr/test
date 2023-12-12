@@ -31,7 +31,6 @@ const Skill = () => {
   const View = async (id) => {
     reset();
     await axios.get(url + "/skill/" + id).then(async (res) => {
-      console.log(res.data.data.type);
       setViewData(res.data.data);
     });
     console.log(id);
@@ -107,10 +106,15 @@ const Skill = () => {
   ];
 
   const getData = async () => {
-    await axios.get(url + "/skill/").then((res) => {
-      console.log(res.data.data);
-      setTableData(res.data.data);
-    });
+    await axios
+      .get(url + "/skill/")
+      .then((res) => {
+        console.log(res.data.data);
+        setTableData(res.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const onSubmit = async (data) => {
@@ -144,10 +148,12 @@ const Skill = () => {
   return (
     <>
       <div className="flex flex-col space-y-5">
-        <span>Skill</span>
-        <span className="w-full flex justify-end">
+        <span className="text-4xl">Skill</span>
+        <hr></hr>
+        <span className="w-full flex justify-start">
           <Button icon="fa fa-plus" onclick={openModalCreate} name="Create" />
         </span>
+        <hr></hr>
         {/* <div className="max-md:bg-black"> */}
         <DataTable
           columns={column}
@@ -171,34 +177,44 @@ const Skill = () => {
         closeFunction={closeModal}
         saveFunction={handleSubmit((data) => onSubmit(data))}
       >
-        <div className="flex flex-wrap w-full text-lg">
-          <form className="flex w-full flex-col space-y-4 flex-wrap flex-grow ">
-            <div className="flex flex-row flex-grow space-x-5">
-              <label className="w-1/2">Type</label>
-              <span className="w-full">
+        <div className="flex w-full text-lg max-sm:text-sm">
+          <form className="flex w-full px-10 flex-col space-y-4 h-auto overflow-auto">
+            <div className="flex flex-row  max-sm:flex-col max-sm:space-y-1 max-sm:justify-center max-sm:items-center space-x-5">
+              <label className="w-1/2 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:w-full">
+                Type
+              </label>
+              <span className="w-full max-sm:flex max-sm:w-56 max-sm:justify-center max-sm:items-center">
                 <input
                   type="text"
                   placeholder="name..."
                   className="outline-pink-400 px-1 border-2 w-full"
                   {...register("type", { required: true })}
                 />
-                <span className="text-red-500">
+                <span className="text-red-500 max-sm:hidden max-sm:w-full">
                   {errors.type?.type === "required" && "type is required"}
                 </span>
               </span>
+              <span className="text-red-500 hidden max-sm:flex max-sm:w-full max-sm:justify-center max-sm:items-center">
+                {errors.type?.type === "required" && "type is required"}
+              </span>
             </div>
-            <div className="flex flex-row w-full space-x-5">
-              <label className="w-1/2">Skill</label>
-              <span className="w-full">
+            <div className="flex flex-row  max-sm:flex-col max-sm:space-y-2 max-sm:justify-center max-sm:items-center space-x-5">
+              <label className="w-1/2 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:w-full">
+                Skill
+              </label>
+              <span className="w-full max-sm:flex max-sm:w-56 max-sm:justify-center max-sm:items-center">
                 <input
                   type="text"
                   placeholder="skill..."
                   className="outline-pink-400 px-1 border-2 w-full"
                   {...register("skill", { required: true })}
                 />
-                <span className="text-red-500">
+                <span className="text-red-500 max-sm:hidden max-sm:w-full">
                   {errors.skill?.type === "required" && "skill is required"}
                 </span>
+              </span>
+              <span className="text-red-500 hidden max-sm:flex max-sm:w-full max-sm:justify-center max-sm:items-center">
+                {errors.skill?.type === "required" && "skill is required"}
               </span>
             </div>
           </form>
@@ -214,23 +230,23 @@ const Skill = () => {
       >
         <div className="flex flex-wrap w-full text-lg">
           <form className="flex w-full flex-col space-y-4 flex-wrap flex-grow ">
-            <div className="flex flex-row w-full space-x-5">
-              <label className="w-1/2">
+            <div className="flex max-sm:flex-wrap max-sm:flex-grow flex-row w-full space-x-5">
+              <label className="w-1/2 flex">
                 Type <span>:</span>
               </label>
-              <span className="w-full">
+              <span className="w-full flex">
                 <span> {viewData.type} </span>
               </span>
             </div>
-            <div className="flex flex-row w-full space-x-5">
-              <label className="w-1/2">
+            <div className="flex max-sm:flex-wrap max-sm:flex-grow flex-row w-full space-x-5">
+              <label className="w-1/2 flex">
                 Skill <span>:</span>
               </label>
               <span className="w-full">
                 <span> {viewData.skill} </span>
               </span>
             </div>
-            <div className="flex flex-row w-full space-x-5">
+            <div className="flex max-sm:flex-wrap max-sm:flex-grow flex-row w-full space-x-5">
               <label className="w-1/2">
                 Created At <span>:</span>
               </label>

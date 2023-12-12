@@ -27,4 +27,8 @@ var (
 	skillRepository repository.SkillRepository = repository.NewSkillRepository(db)
 	skillService    service.SkillService       = service.NewSkillService(skillRepository)
 	skillController controller.SkillController = controller.NewSkillController(skillService)
+
+	projectRepository repository.ProjectRepository = repository.NewProjectRepository(db)
+	projectService    service.ProjectService       = service.NewProjectService(projectRepository)
+	projectController controller.ProjectController = controller.NewProjectController(projectService)
 )

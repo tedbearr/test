@@ -1,7 +1,5 @@
 import Home from "./page/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./component/Navbar";
-import Footer from "./component/Footer";
 import NotFound from "./component/NotFound";
 import Project from "./page/Project";
 import Experience from "./page/Experience";
@@ -12,6 +10,8 @@ import AdminHome from "./page/admin/Home";
 import Login from "./page/admin/Login";
 import Skill from "./page/admin/Skill";
 import { useState } from "react";
+import NotifToast from "./component/Toaster";
+import ProjectAdmin from "./page/admin/Project"
 
 function App() {
   const [expand, setExpand] = useState(true);
@@ -21,6 +21,7 @@ function App() {
       <context.settingConfig.Provider
         value={{ expand, setExpand, expandMobile, setExpandMobile }}
       >
+        <NotifToast />
         <Router>
           <Routes>
             <Route element={<Layout />}>
@@ -30,7 +31,7 @@ function App() {
             </Route>
             <Route path="/admin" element={<AdminLayout.Layout />}>
               <Route path="/admin/" element={<AdminHome />} />
-              <Route path="/admin/project" element={<Project />} />
+              <Route path="/admin/project" element={<ProjectAdmin />} />
               <Route path="/admin/skills" element={<Skill />} />
             </Route>
             <Route path="/admin/Login" element={<Login />} />

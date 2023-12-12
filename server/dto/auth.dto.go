@@ -30,3 +30,7 @@ type ResponseToken struct {
 	AccessToken  string `json:"accessToken" form:"accessToken"`
 	RefreshToken string `json:"refreshToken" form:"refreshToken"`
 }
+
+type VerifyAccessToken struct {
+	AccessToken string `json:"accessToken" form:"accessToken"`
+}

@@ -30,6 +30,7 @@ func main() {
 	prefixAdmin := e.Group("/admin/api/v1/")
 	route.AdminRoute(prefixAdmin)
 	route.SkillRoute(prefixAdmin)
+	route.ProjectRoute(prefixAdmin)
 
 	e.GET("*", func(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, "not found")

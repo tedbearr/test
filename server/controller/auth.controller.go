@@ -71,5 +71,8 @@ func (service *authController) Register(ctx echo.Context) error {
 	} else {
 		return ctx.JSON(http.StatusOK, result)
 	}
+}
+
+func (service *authController) VerifyAccessToken(ctx echo.Context) {
 
 }
